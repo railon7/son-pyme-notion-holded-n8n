@@ -27,6 +27,13 @@ workflows/
 *.log
 logs/
 
+# === Imágenes: solo se publican las versiones anonimizadas (img/flujo-*.png y logos) ===
+# Capturas originales sin anonimizar (contienen nombre real y workflow del cliente)
+img/*Inventtatte*
+img/Holded Notion*Cobros*
+# Recortes temporales de verificación
+img/_tmptop_*
+
 # === Sistema ===
 Thumbs.db
 desktop.ini

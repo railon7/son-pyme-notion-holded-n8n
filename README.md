@@ -40,6 +40,28 @@ transaccional, para tolerar fallos de API sin romper la experiencia del usuario.
 
 Ver detalle en [`docs/arquitectura.md`](docs/arquitectura.md).
 
+## Flujos n8n en producción
+
+Capturas reales de los *workflows* (anonimizadas). Los nombres de nodo, en español,
+documentan la lógica de cada flujo paso a paso.
+
+**Notion → Holded · Generación de facturas** (modalidades ordinaria, recurrente y administrativa):
+
+![Flujo de generación de facturas en n8n](img/flujo-facturas.png)
+
+**Notion → Holded · Sincronización de personas** con deduplicación en cascada
+(ID Holded → Email + NIF → alta nueva):
+
+![Flujo de sincronización de personas en n8n](img/flujo-contactos-personas.png)
+
+**Holded ↔ Notion · Sincronización de empresas**:
+
+![Flujo de sincronización de empresas en n8n](img/flujo-contactos-empresas.png)
+
+**Holded ↔ Notion · Sincronización de cobros** (webhook instantáneo + *schedule* cada 6 h):
+
+![Flujo de sincronización de cobros en n8n](img/flujo-cobros-sync.png)
+
 ## Contenido del repositorio
 
 | Ruta | Qué es |
