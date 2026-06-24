@@ -1,0 +1,34 @@
+# === Secretos y credenciales ===
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*secret*
+*token*
+credentials*.json
+
+# === Datos reales del cliente (publicar solo *.example.*) ===
+*_real.*
+datos/
+clientes/
+exports/
+*.csv
+!*.example.csv
+*.xlsx
+*.xls
+
+# === Workflows reales de n8n (contienen IDs y credenciales) ===
+workflows/
+*.workflow.json
+!*.example.json
+
+# === Registros ===
+*.log
+logs/
+
+# === Sistema ===
+Thumbs.db
+desktop.ini
+.DS_Store
+node_modules/

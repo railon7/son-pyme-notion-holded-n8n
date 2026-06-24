@@ -1,0 +1,6 @@
+Regla,Keywords,Categoria,Peso,Umbral Alta,Umbral Media,Activo
+Ayudas Públicas,"subvención,convocatoria,ayuda,feder,kit digital",Ayudas Publicas,8,75,50,TRUE
+IA aplicada,"inteligencia artificial,llm,modelo de lenguaje,automatización",IA,6,66,33,TRUE
+Automatización,"n8n,workflow,integración,api,zapier,make",Automatizacion,5,60,40,TRUE
+Marketing Digital,"seo,sem,redes sociales,publicidad,campaña",Marketing Digital,4,60,40,TRUE
+Tendencias Sector,"pyme,digitalización,transformación digital,saas",Tendencias,3,66,50,TRUE

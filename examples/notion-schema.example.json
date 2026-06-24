@@ -1,0 +1,67 @@
+{
+  "_comment": "Esquema de referencia de las bases de Notion del SON. Datos ficticios.",
+  "databases": {
+    "Empresas": {
+      "tipo": "dimension",
+      "claveUnica": "NIF",
+      "propiedades": {
+        "Nombre": "title",
+        "NIF": "rich_text",
+        "Holded ID": "rich_text",
+        "Email": "email",
+        "Contactos": "relation -> Contactos",
+        "Traspasar": "checkbox",
+        "Ultima Sync": "date",
+        "Sync Hash": "rich_text"
+      }
+    },
+    "Contactos": {
+      "tipo": "dimension",
+      "claveUnica": "Email",
+      "propiedades": {
+        "Nombre": "title",
+        "Email": "email",
+        "NIF": "rich_text",
+        "Empresa": "relation -> Empresas",
+        "Holded ID": "rich_text",
+        "Traspasar": "checkbox"
+      }
+    },
+    "Negocios": {
+      "tipo": "hecho",
+      "propiedades": {
+        "Titulo": "title",
+        "Empresa": "relation -> Empresas",
+        "Estado": "select [Lead, Prospecto, Ganado, Perdido]",
+        "Importe": "number",
+        "Tipo": "select [Ordinaria, Recurrente, Unica]",
+        "Facturas": "relation -> Facturas"
+      }
+    },
+    "Facturas": {
+      "tipo": "hecho",
+      "espejoDe": "Holded",
+      "propiedades": {
+        "Numero": "title",
+        "Negocio": "relation -> Negocios (se rellena manual cuando viene de Holded)",
+        "Importe Factura": "number (usar subtotal, no precio del primer producto)",
+        "Importe Cobrado": "number",
+        "Estado": "select [Creada, Cobrada, Borrador, Cancelada]",
+        "Factura ID Holded": "rich_text (clave anti-duplicados)",
+        "Fecha Factura": "date (ISO 8601)",
+        "Fecha de Imputacion": "date (para facturas recurrentes 'dormidas')"
+      }
+    },
+    "Errores Sync": {
+      "tipo": "auxiliar",
+      "_comment": "Dead-letter queue. En condiciones normales debe estar vacia.",
+      "propiedades": {
+        "Mensaje": "title",
+        "Flujo": "rich_text",
+        "Registro": "rich_text",
+        "Fecha": "date",
+        "Reintentos": "number"
+      }
+    }
+  }
+}

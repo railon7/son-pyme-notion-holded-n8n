@@ -1,0 +1,55 @@
+{
+  "_comment": "Flujo n8n de EJEMPLO (Presupuesto Ganado -> Factura). Estructura simplificada y SIN credenciales ni IDs reales. Sustituye los placeholders por los tuyos antes de usar.",
+  "name": "[EJEMPLO] Presupuesto Ganado -> Factura",
+  "nodes": [
+    {
+      "name": "Notion Trigger (Estado = Ganado)",
+      "type": "n8n-nodes-base.notionTrigger",
+      "notes": "Dispara al actualizar una pagina de la BD Negocios. Filtrar Estado == 'Ganado'.",
+      "parameters": {
+        "event": "pageUpdatedInDatabase",
+        "databaseId": "={{ $env.NOTION_DB_NEGOCIOS }}"
+      }
+    },
+    {
+      "name": "Get Cliente",
+      "type": "n8n-nodes-base.notion",
+      "notes": "Lee la Empresa relacionada para obtener NIF, Email y Holded ID."
+    },
+    {
+      "name": "Validar Cliente",
+      "type": "n8n-nodes-base.if",
+      "notes": "Aborta si falta Holded ID, NIF o Email validos. Registra E-CLIENTE en Errores Sync."
+    },
+    {
+      "name": "Switch Tipo",
+      "type": "n8n-nodes-base.switch",
+      "notes": "Ordinaria | Recurrente | Unica."
+    },
+    {
+      "name": "Preparar Datos",
+      "type": "n8n-nodes-base.code",
+      "parameters": {
+        "jsCode": "// IMPORTANTE: el subtotal manda sobre el precio del primer producto.\nconst h = $json.holded ?? {};\nconst num = (v) => Number(v) || 0;\nconst importe = num(h?.subtotal ?? h?.products?.[0]?.price ?? 0);\nreturn [{ json: { importe, nif: $json.nif, email: $json.email, holdedId: $json.holdedId } }];"
+      }
+    },
+    {
+      "name": "Holded: Crear Factura",
+      "type": "n8n-nodes-base.httpRequest",
+      "notes": "POST /invoices con credencial Holded del gestor de credenciales (no hardcodear)."
+    },
+    {
+      "name": "Notion: Devolver Nº y URL",
+      "type": "n8n-nodes-base.notion",
+      "notes": "Patch del Negocio con el numero de factura y la URL de Holded. Anadir comentario de trazabilidad."
+    }
+  ],
+  "settings": {
+    "timezone": "Europe/Madrid"
+  },
+  "_placeholders": {
+    "NOTION_DB_NEGOCIOS": "definir en credenciales/entorno",
+    "credencialNotion": "usar gestor de credenciales de n8n",
+    "credencialHolded": "usar gestor de credenciales de n8n"
+  }
+}
