@@ -1,5 +1,10 @@
 # Sistema Operativo de Negocio (SON) para PYMEs · Notion + Holded + n8n
 
+![n8n](https://img.shields.io/badge/n8n-EA4B71?style=for-the-badge&logo=n8n&logoColor=white)
+![JSON](https://img.shields.io/badge/JSON-000000?style=for-the-badge&logo=json&logoColor=white)
+![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white)
+![Holded](https://img.shields.io/badge/Holded-0E9F6E?style=for-the-badge&logoColor=white)
+
 Implantación de un **Sistema Operativo de Negocio**: una arquitectura que integra tres
 herramientas cloud para que una PYME gestione su operación, su contabilidad y la
 sincronización entre ambas sin intervención manual.
